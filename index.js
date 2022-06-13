@@ -3,14 +3,16 @@
 const Max7219 = require('max7219-display');
 const Gpio = require('onoff').Gpio;
 const m = new Max7219({ device: '/dev/spidev0.0', controllerCount: 4, font: 'lcd'});
-const button = new Gpio(3, 'in', 'falling', {debounceTimeout: 150});
+const redButton = new Gpio(3, 'in', 'falling', {debounceTimeout: 150});
+const blackButton = new Gpio(22, 'in', 'both', {debounceTimeout: 500});
 const relay = new Gpio(4, 'out');
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const onExit = async () => {
   console.log();
   await m.resetAll();
-  button.unexport();
+  redButton.unexport();
+  blackButton.unexport();
   process.exit();
 };
 
@@ -18,9 +20,12 @@ let enabled = true;
 let text = 'oleksiisedun.github.io';
 
 (async () => {
-  button.watch(async () => {
+  redButton.watch(async () => {
     enabled = !enabled;
     relay.writeSync(+!enabled);
+  });
+  blackButton.watch((err, value) => {
+    console.log(value);
   });
   await m.resetAll();
   while (true) {
