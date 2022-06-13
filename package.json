@@ -1,0 +1,16 @@
+{
+  "name": "max7219-matrix",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "max7219-display": "^2.1.0",
+    "onoff": "^6.0.3"
+  }
+}
