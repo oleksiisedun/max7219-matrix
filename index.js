@@ -25,7 +25,8 @@ let text = 'oleksiisedun.github.io';
     relay.writeSync(+!enabled);
   });
   blackButton.watch((err, value) => {
-    console.log(value);
+    if (value) text = 'Black button is pressed!';
+    else text = 'oleksiisedun.github.io';
   });
   await m.resetAll();
   while (true) {
